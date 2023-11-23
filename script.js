@@ -2,6 +2,7 @@ let userImg = document.querySelector("#user-image");
 let userName = document.querySelector("#user-name");
 let userOccupation = document.querySelector("#user-occupation");
 let userReview = document.querySelector("#user-review");
+let arrows = document.querySelectorAll(".arrow");
 
 const reviews = [
   {
@@ -24,15 +25,25 @@ const reviews = [
     id: 3,
     pfp: "images/poppy_yordle.jpeg",
     name: "Poppy Yordle",
-    occupation: "Baackend SE",
+    occupation: "Backend SE",
     review_text:
       "Non odio euismod lacinia at quis risus sed vulputate odio. Lectus vestibulum mattis ullamcorper velit. Tempus urna et pharetra pharetra massa massa ultricies. Gravida quis blandit turpis cursus in hac habitasse. Amet nisl purus in mollis nunc sed id semper. Nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum. In ante metus dictum at tempor commodo ullamcorper a lacus. Dolor sit amet consectetur adipiscing elit pellentesque. Egestas tellus rutrum tellus pellentesque. Lacus viverra vitae congue eu consequat ac felis donec. Luctus venenatis lectus magna fringilla urna porttitor rhoncus. Ultrices eros in cursus turpis. At imperdiet dui accumsan sit amet nulla facilisi morbi tempus. Vulputate dignissim suspendisse in est ante in nibh. Nibh praesent tristique magna sit amet purus.",
   },
 ];
 
-let currentReview = 2;
+let currentReview = 0;
 
-userImg.src = reviews[currentReview].pfp;
-userName.textContent = reviews[currentReview].name;
-userOccupation.textContent = reviews[currentReview].occupation;
-userReview.textContent = reviews[currentReview].review_text;
+arrows.forEach((arrow) =>
+  arrow.addEventListener("click", () => {
+    arrow.classList.contains("prev") && currentReview > 0
+      ? (currentReview -= 1)
+      : arrow.classList.contains("next") && currentReview < reviews.length - 1
+      ? (currentReview += 1)
+      : (currentReview += 0);
+    console.log(currentReview);
+    userImg.src = reviews[currentReview].pfp;
+    userName.textContent = reviews[currentReview].name;
+    userOccupation.textContent = reviews[currentReview].occupation;
+    userReview.textContent = reviews[currentReview].review_text;
+  })
+);
